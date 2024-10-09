@@ -23,7 +23,15 @@ class ProduksiResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('kodeBarang')
+                ->label('Kode Barang Produksi')
+                ->required()
+                ->maxLength(10),
+
+                Forms\Components\TextInput::make('namaBarang')
+                ->label('Nama Barang Produksi')
+                ->required()
+                ->maxLength(50),
             ]);
     }
 
@@ -31,7 +39,9 @@ class ProduksiResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeBarang')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('namaBarang')->sortable()->searchable(),
             ])
             ->filters([
                 //

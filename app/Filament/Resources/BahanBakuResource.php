@@ -23,7 +23,22 @@ class BahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('kodeBahanBaku')
+                    ->label('Kode Bahan Baku')
+                    ->required()
+                    ->maxLength(10),
+
+                Forms\Components\Select::make('jenisBahanBaku')
+                    ->label('Jenis Bahan Baku')
+                    ->options([
+                        'Kayu' => 'Kayu',
+                        'Logam' => 'Logam',
+                        'Kain' => 'Kain',
+                        'Kaca' => 'Kaca',
+                        'Batu' => 'Batu',
+                        'Cat' => 'Cat',
+                        'Acc' => 'Acc',
+                    ])
             ]);
     }
 
@@ -31,7 +46,9 @@ class BahanBakuResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('jenisBahanBaku')->sortable()->searchable(),
             ])
             ->filters([
                 //

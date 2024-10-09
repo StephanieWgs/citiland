@@ -23,7 +23,21 @@ class AdminResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('nama')
+                ->label('Nama Admin')
+                ->required()
+                ->maxLength(25),
+
+                Forms\Components\TextInput::make('noHP')
+                ->label('Nomor HP Admin')
+                ->required()
+                ->numeric()
+                ->maxLength(12),
+
+                Forms\Components\TextInput::make('email')
+                ->label('Email Admin')
+                ->required()
+                ->maxLength(35),
             ]);
     }
 
@@ -31,7 +45,10 @@ class AdminResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('nama')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('noHP')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
             ])
             ->filters([
                 //
