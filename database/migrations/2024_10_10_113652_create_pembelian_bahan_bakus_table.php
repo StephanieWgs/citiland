@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('pembelian_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->char("kodeBahanBaku", length:10);
-            $table->char("namaBahanBaku", length:100);
+            $table->char("kodeBahanBaku", length: 10);
+            $table->char("namaBahanBaku", length: 100);
             $table->integer("jumlahPembelian");
-            $table->char("unitBB", length:100);
-            $table->char("namaSupplier", length:40);
+            $table->char("unitBB", length: 100);
+            $table->char("namaSupplier", length: 40);
+            $table->char("hargaBB", length: 25);
             $table->datetime("tanggalPembelian");
-            $table->char("jenisBahanBaku", length:5);
+            $table->char("jenisBahanBaku", length: 5);
             $table->timestamps();
         });
     }

@@ -41,12 +41,12 @@ class ReturBahanBakuResource extends Resource
                     ->searchable(),
 
                 Forms\Components\TextInput::make('namaBahanBaku')
-                    ->label('Kode Bahan Baku')
+                    ->label('Nama Bahan Baku')
                     ->required()
                     ->maxLength(100),
 
                 Forms\Components\TextInput::make('jumlahBahanBaku')
-                    ->label('Kode Bahan Baku')
+                    ->label('Jumlah Bahan Baku')
                     ->numeric()
                     ->required()
                     ->maxLength(15),
@@ -57,11 +57,14 @@ class ReturBahanBakuResource extends Resource
                     ->required()
                     ->maxLength(50),
 
-                Forms\Components\TextInput::make('satuanBahanBaku')
+                Forms\Components\Select::make('satuanBahanBaku')
                     ->label('Satuan Bahan Baku')
-                    ->numeric()
-                    ->required()
-                    ->maxLength(50),
+                    ->options([
+                        'pcs' => 'pcs',
+                        'pack' => 'pack',
+                        'unit' => 'unit',
+                        'm^3' => 'm^3',
+                    ]),
 
                 Forms\Components\DatePicker::make('tanggalRetur')
                     ->label('Tanggal Retur')
