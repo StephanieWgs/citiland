@@ -24,18 +24,18 @@ class GudangResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
-                ->label('Nama Admin')
+                ->label('Nama Staff Gudang')
                 ->required()
                 ->maxLength(25),
 
                 Forms\Components\TextInput::make('noHP')
-                ->label('Nomor HP Admin')
+                ->label('Nomor HP Staff Gudang')
                 ->required()
                 ->numeric()
                 ->maxLength(12),
 
                 Forms\Components\TextInput::make('email')
-                ->label('Email Admin')
+                ->label('Email Staff Gudang')
                 ->required()
                 ->maxLength(35),
             ]);

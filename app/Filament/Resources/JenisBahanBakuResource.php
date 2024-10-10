@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BahanBakuResource\Pages;
-use App\Filament\Resources\BahanBakuResource\RelationManagers;
-use App\Models\BahanBaku;
+use App\Filament\Resources\JenisBahanBakuResource\Pages;
+use App\Filament\Resources\JenisBahanBakuResource\RelationManagers;
+use App\Models\JenisBahanBaku;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,10 +12,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\stokBahanBaku;
 
-class BahanBakuResource extends Resource
+class JenisBahanBakuResource extends Resource
 {
-    protected static ?string $model = BahanBaku::class;
+    protected static ?string $model = JenisBahanBaku::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -23,10 +24,12 @@ class BahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kodeBahanBaku')
+                Forms\Components\Select::make('kodeBahanBaku')
                     ->label('Kode Bahan Baku')
-                    ->required()
-                    ->maxLength(10),
+                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
+                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
+                    }))
+                    ->searchable(),
 
                 Forms\Components\Select::make('jenisBahanBaku')
                     ->label('Jenis Bahan Baku')
@@ -38,7 +41,7 @@ class BahanBakuResource extends Resource
                         'Batu' => 'Batu',
                         'Cat' => 'Cat',
                         'Acc' => 'Acc',
-                    ])
+                    ]),
             ]);
     }
 
@@ -49,6 +52,7 @@ class BahanBakuResource extends Resource
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('jenisBahanBaku')->sortable()->searchable(),
+
             ])
             ->filters([
                 //
@@ -73,9 +77,9 @@ class BahanBakuResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBahanBakus::route('/'),
-            'create' => Pages\CreateBahanBaku::route('/create'),
-            'edit' => Pages\EditBahanBaku::route('/{record}/edit'),
+            'index' => Pages\ListJenisBahanBakus::route('/'),
+            'create' => Pages\CreateJenisBahanBaku::route('/create'),
+            'edit' => Pages\EditJenisBahanBaku::route('/{record}/edit'),
         ];
     }
 }

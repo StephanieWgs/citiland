@@ -21,8 +21,8 @@ return new class extends Migration
             $table->char('hargaBBperunit', length: 50);
             $table->char('jumlahBBmasuk', length: 10);
             $table->char('jumlahBBKeluar', length: 10);
-            $table->char('jsaldoAkhirBB', length: 50);
-            $table->char('juenisBahanBaku', length: 5);
+            $table->char('saldoAkhirBB', length: 50);
+            $table->char('jenisBahanBaku', length: 5);
             $table->char('ratarataPemakaian', length: 25);
             $table->char('jumlah_min', length: 10);
             $table->timestamps();

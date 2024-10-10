@@ -10,7 +10,7 @@ use Faker\Factory as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class bahanBakuSeeder extends Seeder
+class jenisBahanBakuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class bahanBakuSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         for ($i = 1; $i <= 5; $i++) {
-            DB::table('bahan_bakus')->insert([
+            DB::table('jenis_bahan_bakus')->insert([
                 'kodeBahanBaku' => 'BHN' . str_pad($i, 7, '0', STR_PAD_LEFT),
                 'jenisBahanBaku' => 'Kayu',
             ]);

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Models\supplier;
+
 use App\Filament\Resources\ReturBahanBakuResource\Pages;
 use App\Filament\Resources\ReturBahanBakuResource\RelationManagers;
 use App\Models\ReturBahanBaku;
@@ -12,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\stokBahanBaku;
 
 class ReturBahanBakuResource extends Resource
 {
@@ -23,42 +26,46 @@ class ReturBahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('namaSupplier')
-                ->label('Nama Supplier')
-                ->required()
-                ->maxLength(40),
+                Forms\Components\Select::make('namaSupplier')
+                    ->label('Nama Supplier')
+                    ->options(supplier::all()->mapWithKeys(function ($item) {
+                        return [$item->namasupplier => $item->kodesupplier . ' - ' . $item->namasupplier];
+                    }))
+                    ->searchable(),
 
-                Forms\Components\TextInput::make('kodeBahanBaku')
-                ->label('Kode Bahan Baku')
-                ->required()
-                ->maxLength(10),
+                Forms\Components\Select::make('kodeBahanBaku')
+                    ->label('Kode Bahan Baku')
+                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
+                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
+                    }))
+                    ->searchable(),
 
                 Forms\Components\TextInput::make('namaBahanBaku')
-                ->label('Kode Bahan Baku')
-                ->required()
-                ->maxLength(100),
+                    ->label('Kode Bahan Baku')
+                    ->required()
+                    ->maxLength(100),
 
                 Forms\Components\TextInput::make('jumlahBahanBaku')
-                ->label('Kode Bahan Baku')
-                ->numeric()
-                ->required()
-                ->maxLength(15),
+                    ->label('Kode Bahan Baku')
+                    ->numeric()
+                    ->required()
+                    ->maxLength(15),
 
                 Forms\Components\TextInput::make('hargaRetur')
-                ->label('Harga Retur')
-                ->numeric()
-                ->required()
-                ->maxLength(50),
+                    ->label('Harga Retur')
+                    ->numeric()
+                    ->required()
+                    ->maxLength(50),
 
                 Forms\Components\TextInput::make('satuanBahanBaku')
-                ->label('Satuan Bahan Baku')
-                ->numeric()
-                ->required()
-                ->maxLength(50),
+                    ->label('Satuan Bahan Baku')
+                    ->numeric()
+                    ->required()
+                    ->maxLength(50),
 
                 Forms\Components\DatePicker::make('tanggalRetur')
-                ->label('Tanggal Retur')
-                ->required(),
+                    ->label('Tanggal Retur')
+                    ->required(),
             ]);
     }
 

@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\stokBahanBaku;
 
 class PemakaianBahanBakuResource extends Resource
 {
@@ -23,10 +24,12 @@ class PemakaianBahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kodeBahanBaku')
+                Forms\Components\Select::make('kodeBahanBaku')
                     ->label('Kode Bahan Baku')
-                    ->maxLength(10)
-                    ->required(),
+                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
+                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
+                    }))
+                    ->searchable(),
 
                 Forms\Components\TextInput::make('namaBahanBaku')
                     ->label('Nama Bahan Baku')
