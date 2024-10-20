@@ -9,7 +9,6 @@ class jenisBahanBaku extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kodeBahanBaku',
         'jenisBahanBaku',
     ];
 }

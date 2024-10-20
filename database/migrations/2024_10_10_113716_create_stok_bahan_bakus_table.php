@@ -12,19 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stok_bahan_bakus', function (Blueprint $table) {
-            $table->id();
-            $table->char('kodeBahanBaku', length: 10);
+            $table->id()->primary();
+            $table->char('kodeBahanBaku', length: 6)->unique();
             $table->char('namaBahanBaku', length: 100);
-            $table->char('unitBahanBaku', length: 5);
-            $table->char('hargaBahanBaku', length: 30);
-            $table->char('jumlahBahanBaku', length: 10);
-            $table->char('hargaBBperunit', length: 50);
-            $table->char('jumlahBBmasuk', length: 10);
-            $table->char('jumlahBBKeluar', length: 10);
-            $table->char('saldoAkhirBB', length: 50);
-            $table->char('jenisBahanBaku', length: 5);
-            $table->char('ratarataPemakaian', length: 25);
-            $table->char('jumlah_min', length: 10);
+            $table->char("jenisBahanBaku", length: 5);
+            $table->integer('jumlahBahanBaku');
+            $table->char('unitBahanBaku', length: 12);
+            $table->integer('hargaBBperunit');
+            
+            $table->integer('maxLeadTime');
+            $table->integer('ratarataLeadTime');
+            $table->integer('maxBBKeluar');
+            $table->integer('ratarataPemakaian');
+            
+            $table->integer('safetyStock');
+            $table->char('status',length: 12); 
             $table->timestamps();
         });
     }

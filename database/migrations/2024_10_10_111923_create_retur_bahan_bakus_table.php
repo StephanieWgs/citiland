@@ -12,15 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('retur_bahan_bakus', function (Blueprint $table) {
-            $table->id();
-            $table->char("namaSupplier", length:40);
+            $table->id()->primary();
+            // $table->char("namaSupplier", length:40);
+            $table->char("kodeSupplier", length:10);
             $table->char("kodeBahanBaku", length:10);
-            $table->char("namaBahanBaku", length:100);
+            // $table->char("namaBahanBaku", length:100);
             $table->integer("jumlahBahanBaku");
-            $table->char("hargaRetur", length:50);
-            $table->char("satuanBahanBaku", length:50);
+            // $table->char("hargaRetur", length:50);
+            // $table->char("satuanBahanBaku", length:50);
             $table->date("tanggalRetur");
             $table->timestamps();
+
+            $table->foreign('kodeBahanBaku')->references('kodeBahanBaku')->on('stok_bahan_bakus');
+            $table->foreign('kodeSupplier')->references('kodeSupplier')->on('suppliers');
         });
     }
 

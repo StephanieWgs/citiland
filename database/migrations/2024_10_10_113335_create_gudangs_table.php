@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('gudangs', function (Blueprint $table) {
-            $table->id();
+            $table->id()->primary();
             $table->char("nama", length:100);
             $table->char("noHP", length:12);
             $table->char("email", length:100);

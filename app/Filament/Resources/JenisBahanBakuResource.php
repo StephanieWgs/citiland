@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\JenisBahanBakuResource\Pages;
 use App\Filament\Resources\JenisBahanBakuResource\RelationManagers;
-use App\Models\JenisBahanBaku;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,7 +15,6 @@ use App\Models\stokBahanBaku;
 
 class JenisBahanBakuResource extends Resource
 {
-    protected static ?string $model = JenisBahanBaku::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,24 +22,10 @@ class JenisBahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('kodeBahanBaku')
-                    ->label('Kode Bahan Baku')
-                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
-                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
-                    }))
-                    ->searchable(),
-
-                Forms\Components\Select::make('jenisBahanBaku')
-                    ->label('Jenis Bahan Baku')
-                    ->options([
-                        'Kayu' => 'Kayu',
-                        'Logam' => 'Logam',
-                        'Kain' => 'Kain',
-                        'Kaca' => 'Kaca',
-                        'Batu' => 'Batu',
-                        'Cat' => 'Cat',
-                        'Acc' => 'Acc',
-                    ]),
+                Forms\Components\TextInput::make('jenisBahanBaku')
+                    ->label('Nama Jenis Bahan Baku')
+                    ->maxLength(100)
+                    ->required(),
             ]);
     }
 
@@ -50,7 +34,6 @@ class JenisBahanBakuResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('jenisBahanBaku')->sortable()->searchable(),
 
             ])
