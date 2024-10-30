@@ -14,6 +14,20 @@ class ListStokBahanBakus extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            Actions\Action::make('cetak_laporan')
+                ->label('Cetak Laporan')
+                ->icon('heroicon-o-printer')
+                ->action(fn() => static::cetakLaporan())
+                ->requiresConfirmation()
+                ->modalHeading('Laporan Stok Bahan Baku')
+                ->modalSubheading('Apakah Anda ingin mencetak laporan stok?'),
         ];
+    }
+
+    public static function cetakLaporan()
+    {
+        $data = \App\Models\StokBahanBaku::all();
+        $pdf = \PDF::loadView('Laporan.cetak_stok', ['data' => $data]);
+        return response()->streamDownload(fn() => print($pdf->output()), 'laporan-stok.pdf');
     }
 }
