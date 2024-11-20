@@ -17,21 +17,23 @@ class ProduksiResource extends Resource
 {
     protected static ?string $model = Produksi::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
+    protected static ?string $navigationGroup = 'Produksi';
+    protected static ?string $navigationLabel = 'Produksi Barang';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('kodeBarang')
-                ->label('Kode Barang Produksi')
-                ->required()
-                ->maxLength(10),
+                    ->label('Kode Barang Produksi')
+                    ->required()
+                    ->maxLength(10),
 
                 Forms\Components\TextInput::make('namaBarang')
-                ->label('Nama Barang Produksi')
-                ->required()
-                ->maxLength(50),
+                    ->label('Nama Barang Produksi')
+                    ->required()
+                    ->maxLength(50),
             ]);
     }
 

@@ -16,7 +16,9 @@ use App\Models\stokBahanBaku;
 class JenisBahanBakuResource extends Resource
 {
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationGroup = 'Bahan Baku';
+    protected static ?string $navigationLabel = 'Jenis BB';
 
     public static function form(Form $form): Form
     {

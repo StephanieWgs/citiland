@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
 use App\Filament\Resources\AdminResource\RelationManagers;
+use App\Imports\AdminImport;
 use App\Models\Admin;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,12 +13,19 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\Storage;
+use Filament\Notifications\Notification;
 
 class AdminResource extends Resource
 {
     protected static ?string $model = Admin::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Daftar Staff';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationLabel = 'Staff Admin';
 
     public static function form(Form $form): Form
     {
@@ -55,6 +63,33 @@ class AdminResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                Action::make('importExcel')
+                    ->label('Import Excel')
+                    ->action(function (array $data) {
+                        // Pastikan $data['file'] adalah jalur yang valid di storage
+                        $filePath = storage_path('app/public/' . $data['file']);
+
+                        // Import file menggunakan jalur absolut
+                        Excel::import(new AdminImport, $filePath);
+                        // Tampilkan notifikasi sukses
+                        Notification::make()
+                            ->title('Data berhasil diimpor!')
+                            ->success()
+                            ->send();
+                    })
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('Pilih File Excel')
+                            ->disk('public') // Pastikan disimpan di disk 'public'
+                            ->directory('imports')
+                            ->acceptedFileTypes(['application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
+                            ->required(),
+                    ])
+                    ->modalHeading('Import Data Pegawai')
+                    ->modalButton('Import')
+                    ->color('success'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

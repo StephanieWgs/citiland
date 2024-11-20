@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StokBahanBakuResource\Pages;
 use App\Filament\Resources\StokBahanBakuResource\RelationManagers;
+use App\Imports\StokBahanBakuImport;
 use App\Models\StokBahanBaku;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -13,12 +14,19 @@ use Filament\Tables\Table;
 use App\Models\jenisBahanBaku;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
+use Maatwebsite\Excel\Facades\Excel;
+use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\Storage;
+use Filament\Notifications\Notification;
 
 class StokBahanBakuResource extends Resource
 {
     protected static ?string $model = StokBahanBaku::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Bahan Baku';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    protected static ?string $navigationLabel = 'Stok BB';
 
     public static function form(Form $form): Form
     {
@@ -85,6 +93,33 @@ class StokBahanBakuResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+            ])
+            ->headerActions([
+                Action::make('importExcel')
+                    ->label('Import Excel')
+                    ->action(function (array $data) {
+                        // Pastikan $data['file'] adalah jalur yang valid di storage
+                        $filePath = storage_path('app/public/' . $data['file']);
+
+                        // Import file menggunakan jalur absolut
+                        Excel::import(new StokBahanBakuImport, $filePath);
+                        // Tampilkan notifikasi sukses
+                        Notification::make()
+                            ->title('Data berhasil diimpor!')
+                            ->success()
+                            ->send();
+                    })
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('Pilih File Excel')
+                            ->disk('public') // Pastikan disimpan di disk 'public'
+                            ->directory('imports')
+                            ->acceptedFileTypes(['application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
+                            ->required(),
+                    ])
+                    ->modalHeading('Import Data Pegawai')
+                    ->modalButton('Import')
+                    ->color('success'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

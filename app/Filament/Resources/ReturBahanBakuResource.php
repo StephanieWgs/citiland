@@ -20,7 +20,9 @@ class ReturBahanBakuResource extends Resource
 {
     protected static ?string $model = ReturBahanBaku::class;
 
+    protected static ?string $navigationGroup = 'Pembelian';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Retur Bahan Baku';
 
     public static function form(Form $form): Form
     {
