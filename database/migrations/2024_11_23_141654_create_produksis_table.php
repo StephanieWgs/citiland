@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('suppliers', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->char("kodesupplier", length:6)->unique();
-            $table->char("namasupplier", length:40);
-            $table->char("nomorHPsupplier",length:12);
-            $table->text("alamatsupplier");
+        Schema::create('produksis', function (Blueprint $table) {
+            $table->id();
+            $table->char("kodeProduksi", length: 10)->unique();
+            $table->char("namaBarang", length: 50);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('produksis');
     }
 };

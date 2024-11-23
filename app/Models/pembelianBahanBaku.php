@@ -9,13 +9,25 @@ class pembelianBahanBaku extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kodeBahanBaku',
-        'namaBahanBaku',
-        'namaSupplier',
-        'jumlahPembelian',
-        'unitBB',
         'tanggalPembelian',
+        'kodeSupplier',
+        'kodeBahanBaku',
+        'jumlahPembelian',
         'hargaBB',
-        'jenisBahanBaku',
+        'totalHarga',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            $model->totalHarga = $model->hitungTotalHarga();
+        });
+    }
+
+    public function hitungTotalHarga()
+    {
+        return $this->jumlahPembelian * $this->hargaBB;
+    }
 }

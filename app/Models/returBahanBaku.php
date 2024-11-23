@@ -10,12 +10,9 @@ class returBahanBaku extends Model
     use HasFactory;
 
     protected $fillable = [
-        'namaSupplier',
-        'kodeBahanBaku',
-        'namaBahanBaku',
-        'jumlahBahanBaku',
-        'hargaRetur',
-        'satuanBahanBaku',
         'tanggalRetur',
+        'kodeSupplier',
+        'kodeBahanBaku',
+        'jumlahBahanBaku',
     ];
 }

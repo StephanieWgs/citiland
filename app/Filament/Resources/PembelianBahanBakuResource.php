@@ -33,17 +33,25 @@ class PembelianBahanBakuResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\DatePicker::make('tanggalPembelian')
+                    ->label('Tanggal Pembelian')
+                    ->required(),
+
+                Forms\Components\Select::make('kodeSupplier')
+                    ->label('Kode Supplier')
+                    ->options(supplier::all()->mapWithKeys(function ($item) {
+                        return [$item->kodeSupplier => $item->kodeSupplier . ' - ' . $item->namaSupplier];
+                    }))
+                    ->required()
+                    ->searchable(),
+
                 Forms\Components\Select::make('kodeBahanBaku')
                     ->label('Kode Bahan Baku')
                     ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
                         return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
                     }))
-                    ->searchable(),
-
-                Forms\Components\TextInput::make('namaBahanBaku')
-                    ->label('Nama Bahan Baku')
                     ->required()
-                    ->maxLength(100),
+                    ->searchable(),
 
                 Forms\Components\TextInput::make('jumlahPembelian')
                     ->label('Jumlah pembelian')
@@ -51,32 +59,11 @@ class PembelianBahanBakuResource extends Resource
                     ->numeric()
                     ->maxLength(20),
 
-                Forms\Components\TextInput::make('unitBB')
-                    ->label('Unit Barang Baku')
-                    ->required()
-                    ->maxLength(5),
-
-                Forms\Components\Select::make('namaSupplier')
-                    ->label('Nama Supplier')
-                    ->options(supplier::all()->mapWithKeys(function ($item) {
-                        return [$item->namasupplier => $item->kodesupplier . ' - ' . $item->namasupplier];
-                    }))
-                    ->searchable(),
-
                 Forms\Components\TextInput::make('hargaBB')
                     ->label('Harga Barang Baku')
                     ->required()
                     ->numeric()
                     ->maxLength(25),
-
-                Forms\Components\DatePicker::make('tanggalPembelian')
-                    ->label('Tanggal Pembelian')
-                    ->required(),
-
-                Forms\Components\TextInput::make('jenisBahanBaku')
-                    ->label('Jenis Bahan Baku')
-                    ->required()
-                    ->maxLength(5),
             ]);
     }
 
@@ -85,11 +72,12 @@ class PembelianBahanBakuResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namaBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('tanggalPembelian')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namaSupplier')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('jenisBahanBaku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeSupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('jumlahPembelian')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('hargaBB')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('totalHarga')->sortable()->searchable(),
             ])
             ->filters([
                 //

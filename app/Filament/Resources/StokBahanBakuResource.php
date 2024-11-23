@@ -81,11 +81,9 @@ class StokBahanBakuResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('namaBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('jenisBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('jumlahBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('unitBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('hargaBBperunit')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('safetyStock')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('status')->sortable()->searchable(),
             ])
             ->filters([

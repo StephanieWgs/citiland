@@ -9,7 +9,12 @@ class produksi extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kodeBarang',
+        'kodeProduksi',
         'namaBarang',
     ];
+
+    public function pemakaianBahanBakus()
+    {
+        return $this->hasMany(PemakaianBahanBaku::class);
+    }
 }

@@ -10,7 +10,7 @@ class gudang extends Model
     use HasFactory;
     protected $fillable = [
         'nama',
-        'noHP',
+        'noHp',
         'email',
     ];
 }

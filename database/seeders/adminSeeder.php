@@ -21,7 +21,7 @@ class adminSeeder extends Seeder
         for ($i = 1; $i <= 3; $i++) {
             DB::table('admins')->insert([
                 'nama' => $faker->name,
-                'noHP' => '08' . mt_rand(100000000, 9999999999),
+                'noHp' => '08' . mt_rand(100000000, 9999999999),
                 'email' => $faker->email,
             ]);
         }

@@ -18,14 +18,6 @@ class jenisBahanBakuSeeder extends Seeder
      */
     public function run(): void
     {
-        // $faker = Faker::create('id_ID');
-        // for ($i = 1; $i <= 5; $i++) {
-        //     DB::table('jenis_bahan_bakus')->insert([
-        //         'kodeBahanBaku' => 'BHN' . str_pad($i, 7, '0', STR_PAD_LEFT),
-        //         'jenisBahanBaku' => 'Kayu',
-        //     ]);
-        // }
-
         $jenisBahanBaku = new jenisBahanBaku();
         $jenisBahanBaku->jenisBahanBaku = 'Kayu';
         $jenisBahanBaku->save();

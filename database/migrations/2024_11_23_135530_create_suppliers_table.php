@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produksis', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->char("kodeBarang", length:10)->unique();
-            $table->char("namaBarang", length:50);
+        Schema::create('suppliers', function (Blueprint $table) {
+            $table->id();
+            $table->char("kodeSupplier", length:6)->unique();
+            $table->char("namaSupplier", length:40);
+            $table->char("nomorHpSupplier",length:12);
+            $table->text("alamatSupplier");
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produksis');
+        Schema::dropIfExists('suppliers');
     }
 };

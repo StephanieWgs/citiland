@@ -25,7 +25,7 @@ class ProduksiResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kodeBarang')
+                Forms\Components\TextInput::make('kodeProduksi')
                     ->label('Kode Barang Produksi')
                     ->required()
                     ->maxLength(10),
@@ -42,7 +42,7 @@ class ProduksiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeBarang')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeProduksi')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('namaBarang')->sortable()->searchable(),
             ])
             ->filters([

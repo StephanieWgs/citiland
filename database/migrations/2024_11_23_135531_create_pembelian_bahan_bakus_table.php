@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemakaian_bahan_bakus', function (Blueprint $table) {
-            $table->id()->primary();
+        Schema::create('pembelian_bahan_bakus', function (Blueprint $table) {
+            $table->id();
+            $table->datetime("tanggalPembelian");            
+            $table->char("kodeSupplier", length: 10);
             $table->char("kodeBahanBaku", length: 10);
-            // $table->char("namaBahanBaku", length: 100);
-            $table->char("jumlahPemakaian", length: 20);
-            // $table->char("unitBB", length: 5);
-            $table->date("tanggalPemakaian");
-            // $table->char("jenisBahanBaku", length: 5);
+            $table->integer("jumlahPembelian");
+            $table->integer("hargaBB");
+            $table->integer("totalHarga");
             $table->timestamps();
 
+            // Foreign keys
             $table->foreign('kodeBahanBaku')->references('kodeBahanBaku')->on('stok_bahan_bakus');
+            $table->foreign('kodeSupplier')->references('kodeSupplier')->on('suppliers');
         });
     }
 
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemakaian_bahan_bakus');
+        Schema::dropIfExists('pembelian_bahan_bakus');
     }
 };

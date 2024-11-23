@@ -31,23 +31,23 @@ class SupplierResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kodesupplier')
+                Forms\Components\TextInput::make('kodeSupplier')
                     ->label('Kode Supplier')
                     ->required()
                     ->maxLength(10),
 
-                Forms\Components\TextInput::make('namasupplier')
+                Forms\Components\TextInput::make('namaSupplier')
                     ->label('Nama Supplier')
                     ->required()
                     ->maxLength(40),
 
-                Forms\Components\TextInput::make('nomorHPsupplier')
+                Forms\Components\TextInput::make('nomorHpSupplier')
                     ->label('Nomor HP Supplier')
                     ->numeric()
                     ->required()
                     ->maxLength(12),
 
-                Forms\Components\TextArea::make('alamatsupplier')
+                Forms\Components\TextArea::make('alamatSupplier')
                     ->label('Alamat Supplier')
                     ->required(),
             ]);
@@ -58,10 +58,10 @@ class SupplierResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodesupplier')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namasupplier')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('nomorHPsupplier')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('alamatsupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeSupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('namaSupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('nomorHpSupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('alamatSupplier')->sortable()->searchable(),
             ])
             ->filters([
                 //

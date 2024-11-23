@@ -28,11 +28,16 @@ class ReturBahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('namaSupplier')
-                    ->label('Nama Supplier')
+                Forms\Components\DatePicker::make('tanggalRetur')
+                    ->label('Tanggal Retur')
+                    ->required(),
+
+                Forms\Components\Select::make('kodeSupplier')
+                    ->label('Kode Supplier')
                     ->options(supplier::all()->mapWithKeys(function ($item) {
-                        return [$item->namasupplier => $item->kodesupplier . ' - ' . $item->namasupplier];
+                        return [$item->kodeSupplier => $item->kodeSupplier . ' - ' . $item->namaSupplier];
                     }))
+                    ->required()
                     ->searchable(),
 
                 Forms\Components\Select::make('kodeBahanBaku')
@@ -40,37 +45,14 @@ class ReturBahanBakuResource extends Resource
                     ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
                         return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
                     }))
-                    ->searchable(),
-
-                Forms\Components\TextInput::make('namaBahanBaku')
-                    ->label('Nama Bahan Baku')
                     ->required()
-                    ->maxLength(100),
+                    ->searchable(),
 
                 Forms\Components\TextInput::make('jumlahBahanBaku')
                     ->label('Jumlah Bahan Baku')
                     ->numeric()
                     ->required()
                     ->maxLength(15),
-
-                Forms\Components\TextInput::make('hargaRetur')
-                    ->label('Harga Retur')
-                    ->numeric()
-                    ->required()
-                    ->maxLength(50),
-
-                Forms\Components\Select::make('satuanBahanBaku')
-                    ->label('Satuan Bahan Baku')
-                    ->options([
-                        'pcs' => 'pcs',
-                        'pack' => 'pack',
-                        'unit' => 'unit',
-                        'm^3' => 'm^3',
-                    ]),
-
-                Forms\Components\DatePicker::make('tanggalRetur')
-                    ->label('Tanggal Retur')
-                    ->required(),
             ]);
     }
 
@@ -79,13 +61,10 @@ class ReturBahanBakuResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namaSupplier')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namaBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('jumlahBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('hargaRetur')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('satuanBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('tanggalRetur')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeSupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('jumlahBahanBaku')->sortable()->searchable(),
             ])
             ->filters([
                 //

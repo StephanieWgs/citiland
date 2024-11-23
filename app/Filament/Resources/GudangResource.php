@@ -36,7 +36,7 @@ class GudangResource extends Resource
                     ->required()
                     ->maxLength(25),
 
-                Forms\Components\TextInput::make('noHP')
+                Forms\Components\TextInput::make('noHp')
                     ->label('Nomor HP Staff Gudang')
                     ->required()
                     ->numeric()
@@ -55,7 +55,7 @@ class GudangResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('nama')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('noHP')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('noHp')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
             ])
             ->filters([

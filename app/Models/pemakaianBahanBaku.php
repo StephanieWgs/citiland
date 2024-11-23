@@ -10,11 +10,14 @@ class pemakaianBahanBaku extends Model
     use HasFactory;
     protected $fillable =
     [
-        'kodeBahanBaku',
-        'namaBahanBaku',
-        'jumlahPemakaian',
-        'unitBB',
         'tanggalPemakaian',
-        'jenisBahanBaku'
+        'kodeBahanBaku',
+        'kodeProduksi',
+        'jumlahPemakaian',
     ];
+
+    public function produksi()
+    {
+        return $this->belongsTo(Produksi::class);
+    }
 }

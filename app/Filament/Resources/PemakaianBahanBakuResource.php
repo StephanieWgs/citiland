@@ -6,6 +6,7 @@ use App\Filament\Resources\PemakaianBahanBakuResource\Pages;
 use App\Filament\Resources\PemakaianBahanBakuResource\RelationManagers;
 use App\Imports\PemakaianBahanBakuImport;
 use App\Models\PemakaianBahanBaku;
+use App\Models\produksi;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,35 +33,30 @@ class PemakaianBahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('kodeBahanBaku')
-                    ->label('Kode Bahan Baku')
-                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
-                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
-                    }))
-                    ->searchable(),
-
-                Forms\Components\TextInput::make('namaBahanBaku')
-                    ->label('Nama Bahan Baku')
-                    ->maxLength(100)
-                    ->required(),
-
-                Forms\Components\TextInput::make('jumlahPemakaian')
-                    ->label('Jumlah Pemakaian')
-                    ->maxLength(20)
-                    ->required(),
-
-                Forms\Components\TextInput::make('unitBB')
-                    ->label('Unit Bahan Baku')
-                    ->maxLength(10)
-                    ->required(),
-
                 Forms\Components\DatePicker::make('tanggalPemakaian')
                     ->label('Tanggal Pemakaian')
                     ->required(),
 
-                Forms\Components\TextInput::make('jenisBahanBaku')
-                    ->label('Jenis Bahan Baku')
-                    ->maxLength(5)
+                Forms\Components\Select::make('kodeBahanBaku')
+                    ->label('Kode Bahan Baku')
+                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
+                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
+                    })
+                        ->prepend('-', '-'))
+                    ->required()
+                    ->searchable(),
+
+                Forms\Components\Select::make('kodeProduksi')
+                    ->label('Kode Produksi')
+                    ->options(produksi::all()->mapWithKeys(function ($item) {
+                        return [$item->kodeProduksi => $item->kodeProduksi . ' - ' . $item->namaBarang];
+                    }))
+                    ->required()
+                    ->searchable(),
+
+                Forms\Components\TextInput::make('jumlahPemakaian')
+                    ->label('Jumlah Pemakaian')
+                    ->maxLength(20)
                     ->required(),
             ]);
     }
@@ -70,12 +66,10 @@ class PemakaianBahanBakuResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('namaBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('jumlahPemakaian')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('unitBB')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('tanggalPemakaian')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('jenisBahanBaku')->sortable()->searchable()
+                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeProduksi')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('jumlahPemakaian')->sortable()->searchable(),
             ])
             ->filters([
                 //
