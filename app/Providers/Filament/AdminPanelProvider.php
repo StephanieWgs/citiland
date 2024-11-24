@@ -18,8 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-use App\Filament\Widgets\TotalProduksiStatWidget;
-use App\Filament\Widgets\NeedRestockStatWidget;
+use App\Filament\Widgets\TotalStatWidget;
 use App\Filament\Widgets\PemakaianTableWidget;
 use App\Filament\Widgets\PembelianTableWidget;
 
@@ -42,8 +41,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                TotalProduksiStatWidget::class,
-                NeedRestockStatWidget::class,
+                TotalStatWidget::class,
                 PemakaianTableWidget::class,
                 PembelianTableWidget::class,
             ])

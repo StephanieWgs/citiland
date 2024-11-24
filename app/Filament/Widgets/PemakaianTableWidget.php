@@ -9,6 +9,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class PemakaianTableWidget extends BaseWidget
 {
+    protected static ?string $heading = 'Riwayat Pemakaian BB';
     public function table(Table $table): Table
     {
         return $table
@@ -18,7 +19,7 @@ class PemakaianTableWidget extends BaseWidget
             )
             ->columns([
                 Tables\Columns\TextColumn::make('tanggalPemakaian')
-                    ->label('Tgl Pembelian')
+                    ->label('Tgl')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('kodeBahanBaku')
                     ->label('Kode BB')

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pembelian_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->datetime("tanggalPembelian");            
+            $table->date("tanggalPembelian");            
             $table->char("kodeSupplier", length: 10);
             $table->char("kodeBahanBaku", length: 10);
             $table->integer("jumlahPembelian");
