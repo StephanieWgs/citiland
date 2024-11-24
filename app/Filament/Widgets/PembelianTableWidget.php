@@ -15,6 +15,7 @@ class PembelianTableWidget extends BaseWidget
         return $table
             ->query(
                 pembelianBahanBaku::query()
+                    ->orderBy('tanggalPembelian', 'desc')
                     ->limit(5)
             )
             ->columns([

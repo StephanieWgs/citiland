@@ -18,7 +18,7 @@ class supplierSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create('id_ID');
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             DB::table('suppliers')->insert([
                 'kodeSupplier' => 'SUP' . str_pad($i, 3, '0', STR_PAD_LEFT),
                 'namaSupplier' => $faker->company,

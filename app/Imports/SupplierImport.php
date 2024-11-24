@@ -4,18 +4,20 @@ namespace App\Imports;
 
 use App\Models\Supplier;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class SupplierImport implements ToModel
+class SupplierImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    protected $rowCount = 0;
+    protected $rowCount = 1;
     public function model(array $row)
     {
-        if ($this->rowCount++ > 0 && isset($row[0])) {
+        $this->rowCount++;
+        if ($this->rowCount > 1) {
             return new supplier([
                 //table - excel
                 'kodeSupplier' => $row['kodesupplier'],

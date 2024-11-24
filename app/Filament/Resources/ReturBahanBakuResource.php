@@ -70,8 +70,14 @@ class ReturBahanBakuResource extends Resource
                         $kodeBahanBaku = $get('kodeBahanBaku');
                         $pembelian = pembelianBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)->first();
 
-                        if ($pembelian && $state > $pembelian->jumlahPembelian) {
-                            $set('jumlahRetur', $pembelian->jumlahPembelian);
+                        if ($pembelian) {
+                            $totalRetur = returBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)
+                                ->sum('jumlahRetur');
+                            $maksRetur = $pembelian->jumlahPembelian - $totalRetur;
+
+                            if ($state > $maksRetur) {
+                                $set('jumlahRetur', $maksRetur);
+                            }
                         }
                     })
                     ->reactive(),

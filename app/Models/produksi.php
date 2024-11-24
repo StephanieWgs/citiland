@@ -14,8 +14,8 @@ class produksi extends Model
         'namaBarang',
     ];
 
-    public function pemakaianBahanBakus()
+    public function pemakaian()
     {
-        return $this->hasMany(PemakaianBahanBaku::class);
+        return $this->hasMany(PemakaianBahanBaku::class, 'kodeProduksi', 'kodeProduksi');
     }
 }

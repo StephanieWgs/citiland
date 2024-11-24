@@ -51,4 +51,9 @@ class pembelianBahanBaku extends Model
     {
         return $this->belongsTo(supplier::class, 'kodeSupplier', 'kodeSupplier');
     }
+
+    public function retur()
+    {
+        return $this->hasMany(returBahanBaku::class, 'referensi', 'noInv');
+    }
 }

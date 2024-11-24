@@ -13,12 +13,13 @@ class StokBahanBakuImport implements ToModel, WithHeadingRow
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    protected $rowCount = 0;
+    protected $rowCount = 1;
     public function model(array $row)
     {
         $this->rowCount++;
-        if ($this->rowCount > 0 && isset($row[0])) {
+        if ($this->rowCount > 1) {
             return new StokBahanBaku([
+                // Log::info('Row Data:', $row);
                 //table - excel
                 'kodeBahanBaku' => $row['kodebahanbaku'],
                 'namaBahanBaku' => $row['namabahanbaku'],

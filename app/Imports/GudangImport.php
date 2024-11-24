@@ -4,18 +4,20 @@ namespace App\Imports;
 
 use App\Models\Gudang;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class GudangImport implements ToModel
+class GudangImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    protected $rowCount = 0;
+    protected $rowCount = 1;
     public function model(array $row)
     {
-        if ($this->rowCount++ > 0 && isset($row[0])) {
+        $this->rowCount++;
+        if ($this->rowCount > 1) {
             return new gudang([
                 //table - excel
                 'nama' => $row['nama'],
