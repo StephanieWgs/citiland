@@ -21,6 +21,8 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Widgets\TotalStatWidget;
 use App\Filament\Widgets\PemakaianTableWidget;
 use App\Filament\Widgets\PembelianTableWidget;
+use App\Filament\Widgets\PemakaianChartWidget;
+use App\Filament\Widgets\PembelianChartWidget;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -42,6 +44,8 @@ class AdminPanelProvider extends PanelProvider
             // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 TotalStatWidget::class,
+                PemakaianChartWidget::class,
+                PembelianChartWidget::class,
                 PemakaianTableWidget::class,
                 PembelianTableWidget::class,
             ])

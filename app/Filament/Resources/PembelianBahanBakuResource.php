@@ -37,6 +37,11 @@ class PembelianBahanBakuResource extends Resource
                     ->label('Tanggal Pembelian')
                     ->required(),
 
+                Forms\Components\TextInput::make('noInv')
+                    ->label('No. Invoice')
+                    ->required()
+                    ->maxLength(50),
+
                 Forms\Components\Select::make('kodeSupplier')
                     ->label('Kode Supplier')
                     ->options(supplier::all()->mapWithKeys(function ($item) {
@@ -60,7 +65,7 @@ class PembelianBahanBakuResource extends Resource
                     ->maxLength(20),
 
                 Forms\Components\TextInput::make('hargaBB')
-                    ->label('Harga Barang Baku')
+                    ->label('Harga Satuan')
                     ->required()
                     ->numeric()
                     ->maxLength(25),
@@ -71,13 +76,11 @@ class PembelianBahanBakuResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('tanggalPembelian')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('noInv')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeSupplier')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('jumlahPembelian')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('hargaBB')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('totalHarga')->sortable()->searchable(),
             ])
             ->filters([
                 //

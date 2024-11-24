@@ -10,14 +10,32 @@ class pemakaianBahanBaku extends Model
     use HasFactory;
     protected $fillable =
     [
-        'tanggalPemakaian',
         'kodeBahanBaku',
         'kodeProduksi',
         'jumlahPemakaian',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Kurangi stok
+        static::created(function ($model) {
+            $bahanBaku = stokBahanBaku::where('kodeBahanBaku', $model->kodeBahanBaku)->first();
+            if ($bahanBaku) {
+                $bahanBaku->jumlahBahanBaku -= $model->jumlahPemakaian;
+                $bahanBaku->save();
+            }
+        });
+    }
+
     public function produksi()
     {
-        return $this->belongsTo(Produksi::class);
+        return $this->belongsTo(Produksi::class, 'kodeProduksi', 'kodeProduksi');
+    }
+
+    public function bahanBaku()
+    {
+        return $this->belongsTo(stokBahanBaku::class, 'kodeBahanBaku', 'kodeBahanBaku');
     }
 }

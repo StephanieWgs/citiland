@@ -30,7 +30,7 @@
             background-color: #1e88e5;
             color: #fff;
             padding: 12px;
-            text-align: left;
+            text-align: center;
             font-size: 16px;
             border: 1px solid #e0e0e0;
         }
@@ -38,7 +38,7 @@
         td {
             padding: 12px;
             border: 1px solid #e0e0e0;
-            text-align: left;
+            text-align: center;
             font-size: 14px;
             color: #555;
         }
@@ -61,13 +61,13 @@
 </head>
 
 <body>
-    <h2>Laporan Data Supplier</h2>
+    <h2>Laporan Data Stok</h2>
     <table>
         <thead>
             <tr>
                 <th>No</th>
                 <th>Kode</th>
-                <th>Nama</th>
+                <th style="text-align: left;">Nama</th>
                 <th>Jenis</th>
                 <th>Qty</th>
                 <th>Harga per Unit</th>
@@ -80,10 +80,10 @@
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $stok->kodeBahanBaku }}</td>
-                <td>{{ $stok->namaBahanBaku }}</td>
+                <td style="text-align: left;">{{ $stok->namaBahanBaku }}</td>
                 <td>{{ $stok->jenisBahanBaku }}</td>
                 <td>{{ $stok->jumlahBahanBaku }}</td>
-                <td>{{ $stok->hargaBBperunit }}</td>
+                <td>Rp{{ $stok->hargaBBperunit }}</td>
                 <td>{{ $stok->safetyStock }}</td>
                 <td>{{ $stok->status }}</td>
             </tr>

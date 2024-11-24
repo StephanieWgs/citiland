@@ -19,7 +19,7 @@ class GudangImport implements ToModel
             return new gudang([
                 //table - excel
                 'nama' => $row['nama'],
-                'noHP' => $row['nohp'],
+                'noHp' => $row['nohp'],
                 'email' => $row['email'],
             ]);
         } else {

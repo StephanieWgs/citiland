@@ -18,14 +18,13 @@ class PembelianBahanBakuImport implements ToModel
         if ($this->rowCount++ > 0 && isset($row[0])) {
             return new PembelianBahanBaku([
                 //table - excel
-                'kodeBahanBaku' => $row['kodebahanbaku'],
-                'namaBahanBaku' => $row['namabahanbaku'],
-                'namaSupplier' => $row['namasupplier'],
-                'jumlahPembelian' => $row['jumlahpembelian'],
-                'unitBB' => $row['unitbb'],
                 'tanggalPembelian' => $row['tanggalpembelian'],
+                'noInv' => $row['noinv'],
+                'kodeSupplier' => $row['kodesupplier'],
+                'kodeBahanBaku' => $row['kodebahanbaku'],
+                'jumlahPembelian' => $row['jumlahpembelian'],
                 'hargaBB' => $row['hargabb'],
-                'jenisBahanBaku' => $row['jenisbahanbaku'],
+                'totalHarga' => $row['totalharga'],
             ]);
         } else {
             return null;

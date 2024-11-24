@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('retur_bahan_bakus', function (Blueprint $table) {
             $table->id();            
             $table->date("tanggalRetur");
-            $table->char("kodeSupplier", length: 10);
+            $table->char("referensi", length: 50);
             $table->char("kodeBahanBaku", length: 10);
-            $table->integer("jumlahBahanBaku");
+            $table->integer("jumlahRetur");
+            $table->text("alasan");
             $table->timestamps();
 
             // Foreign keys
             $table->foreign('kodeBahanBaku')->references('kodeBahanBaku')->on('stok_bahan_bakus');
-            $table->foreign('kodeSupplier')->references('kodeSupplier')->on('suppliers');
         });
     }
 

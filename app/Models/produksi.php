@@ -9,6 +9,7 @@ class produksi extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'tanggalProduksi',
         'kodeProduksi',
         'namaBarang',
     ];

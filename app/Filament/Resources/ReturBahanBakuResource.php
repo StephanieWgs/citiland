@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
+
 use App\Models\supplier;
 
 use App\Filament\Resources\ReturBahanBakuResource\Pages;
 use App\Filament\Resources\ReturBahanBakuResource\RelationManagers;
+use App\Models\pembelianBahanBaku;
 use App\Models\ReturBahanBaku;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -32,27 +34,51 @@ class ReturBahanBakuResource extends Resource
                     ->label('Tanggal Retur')
                     ->required(),
 
-                Forms\Components\Select::make('kodeSupplier')
-                    ->label('Kode Supplier')
-                    ->options(supplier::all()->mapWithKeys(function ($item) {
-                        return [$item->kodeSupplier => $item->kodeSupplier . ' - ' . $item->namaSupplier];
+                Forms\Components\Select::make('referensi')
+                    ->label('Referensi Invoice')
+                    ->options(pembelianBahanBaku::all()->mapWithKeys(function ($item) {
+                        return [$item->noInv => $item->noInv];
                     }))
                     ->required()
                     ->searchable(),
 
                 Forms\Components\Select::make('kodeBahanBaku')
                     ->label('Kode Bahan Baku')
-                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
-                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
-                    }))
+                    ->options(function ($get) {
+                        $referensi = $get('referensi');
+                        if ($referensi) {
+                            return pembelianBahanBaku::where('noInv', $referensi)
+                                ->with('bahanBaku')
+                                ->get()
+                                ->mapWithKeys(function ($item) {
+                                    return [
+                                        $item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . ($item->bahanBaku ? $item->bahanBaku->namaBahanBaku : 'Unknown Bahan Baku')
+                                    ];
+                                });
+                        }
+                        return [];
+                    })
                     ->required()
                     ->searchable(),
 
-                Forms\Components\TextInput::make('jumlahBahanBaku')
-                    ->label('Jumlah Bahan Baku')
-                    ->numeric()
+                Forms\Components\TextInput::make('jumlahRetur')
+                    ->label('Jumlah Retur')
                     ->required()
-                    ->maxLength(15),
+                    ->numeric()
+                    ->minValue(1)
+                    ->afterStateUpdated(function (callable $set, $state, $get) {
+                        $kodeBahanBaku = $get('kodeBahanBaku');
+                        $pembelian = pembelianBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)->first();
+
+                        if ($pembelian && $state > $pembelian->jumlahPembelian) {
+                            $set('jumlahRetur', $pembelian->jumlahPembelian);
+                        }
+                    })
+                    ->reactive(),
+
+                Forms\Components\TextInput::make('alasan')
+                    ->label('Alasan Retur')
+                    ->required(),
             ]);
     }
 
@@ -60,11 +86,11 @@ class ReturBahanBakuResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('tanggalRetur')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeSupplier')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('referensi')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('jumlahBahanBaku')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('jumlahRetur')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('alasan')->sortable()->searchable(),
             ])
             ->filters([
                 //

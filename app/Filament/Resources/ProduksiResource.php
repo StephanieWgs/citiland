@@ -25,6 +25,10 @@ class ProduksiResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\DatePicker::make('tanggalProduksi')
+                    ->label('Tanggal Produksi')
+                    ->required(),
+
                 Forms\Components\TextInput::make('kodeProduksi')
                     ->label('Kode Barang Produksi')
                     ->required()
@@ -41,7 +45,7 @@ class ProduksiResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('tanggalProduksi')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeProduksi')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('namaBarang')->sortable()->searchable(),
             ])

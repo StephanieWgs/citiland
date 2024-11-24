@@ -18,10 +18,10 @@ class SupplierImport implements ToModel
         if ($this->rowCount++ > 0 && isset($row[0])) {
             return new supplier([
                 //table - excel
-                'kodesupplier' => $row['kodesupplier'],
-                'namasupplier' => $row['nama'],
-                'nomorHPsupplier' => $row['nohp'],
-                'alamatsupplier' => $row['alamat'],
+                'kodeSupplier' => $row['kodesupplier'],
+                'namaSupplier' => $row['nama'],
+                'nomorHpSupplier' => $row['nohp'],
+                'alamatSupplier' => $row['alamat'],
             ]);
         } else {
             return null;

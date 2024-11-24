@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->char('kodeBahanBaku', length: 6)->unique();
             $table->char('namaBahanBaku', length: 100);
-            $table->char("jenisBahanBaku", length: 5);
+            $table->char("jenisBahanBaku", length: 12);
             $table->integer('jumlahBahanBaku');
             $table->char('unitBahanBaku', length: 12);
             $table->integer('hargaBBperunit');

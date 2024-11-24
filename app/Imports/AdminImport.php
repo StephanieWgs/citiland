@@ -19,7 +19,7 @@ class AdminImport implements ToModel
             return new admin([
                 //table - excel
                 'nama' => $row['nama'],
-                'noHP' => $row['nohp'],
+                'noHp' => $row['nohp'],
                 'email' => $row['email'],
             ]);
         } else {

@@ -53,7 +53,6 @@ class AdminResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('nama')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('noHp')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('email')->sortable()->searchable(),

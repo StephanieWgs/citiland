@@ -33,19 +33,6 @@ class PemakaianBahanBakuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('tanggalPemakaian')
-                    ->label('Tanggal Pemakaian')
-                    ->required(),
-
-                Forms\Components\Select::make('kodeBahanBaku')
-                    ->label('Kode Bahan Baku')
-                    ->options(stokBahanBaku::all()->mapWithKeys(function ($item) {
-                        return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
-                    })
-                        ->prepend('-', '-'))
-                    ->required()
-                    ->searchable(),
-
                 Forms\Components\Select::make('kodeProduksi')
                     ->label('Kode Produksi')
                     ->options(produksi::all()->mapWithKeys(function ($item) {
@@ -54,10 +41,34 @@ class PemakaianBahanBakuResource extends Resource
                     ->required()
                     ->searchable(),
 
+                Forms\Components\Select::make('kodeBahanBaku')
+                    ->label('Kode Bahan Baku')
+                    ->options(
+                        stokBahanBaku::where('jumlahBahanBaku', '>', 0)
+                            ->get()
+                            ->mapWithKeys(function ($item) {
+                                return [$item->kodeBahanBaku => $item->kodeBahanBaku . ' - ' . $item->namaBahanBaku];
+                            })
+                    )
+                    ->required()
+                    ->searchable(),
+
                 Forms\Components\TextInput::make('jumlahPemakaian')
                     ->label('Jumlah Pemakaian')
                     ->maxLength(20)
-                    ->required(),
+                    ->required()
+                    ->numeric()
+                    ->minValue(1)
+                    ->afterStateUpdated(function (callable $set, $state, $get) {
+                        $kodeBahanBaku = $get('kodeBahanBaku');
+                        $stok = stokBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)->first();
+
+                        // Jika stok tersedia, validasi agar jumlahPemakaian tidak melebihi stok
+                        if ($stok && $state > $stok->jumlahBahanBaku) {
+                            $set('jumlahPemakaian', $stok->jumlahBahanBaku); // Atur jumlahPemakaian agar tidak melebihi stok
+                        }
+                    })
+                    ->reactive(),
             ]);
     }
 
@@ -65,10 +76,8 @@ class PemakaianBahanBakuResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('tanggalPemakaian')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeProduksi')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('kodeBahanBaku')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('jumlahPemakaian')->sortable()->searchable(),
             ])
             ->filters([

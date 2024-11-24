@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('produksis', function (Blueprint $table) {
             $table->id();
+            $table->date('tanggalProduksi');
             $table->char("kodeProduksi", length: 10)->unique();
             $table->char("namaBarang", length: 50);
             $table->timestamps();

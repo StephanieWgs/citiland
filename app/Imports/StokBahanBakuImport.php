@@ -4,18 +4,20 @@ namespace App\Imports;
 
 use App\Models\StokBahanBaku;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StokBahanBakuImport implements ToModel
+class StokBahanBakuImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     protected $rowCount = 0;
     public function model(array $row)
     {
-        if ($this->rowCount++ > 0 && isset($row[0])) {
+        $this->rowCount++;
+        if ($this->rowCount > 0 && isset($row[0])) {
             return new StokBahanBaku([
                 //table - excel
                 'kodeBahanBaku' => $row['kodebahanbaku'],

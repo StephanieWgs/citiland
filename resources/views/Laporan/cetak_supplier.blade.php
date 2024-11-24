@@ -65,7 +65,7 @@
     <table>
         <thead>
             <tr>
-                <th>No</th>
+                <th style="text-align: center;">No</th>
                 <th>Kode</th>
                 <th>Nama</th>
                 <th>No. HP</th>
@@ -75,11 +75,11 @@
         <tbody>
             @foreach($data as $key => $supplier)
             <tr>
-                <td>{{ $key + 1 }}</td>
-                <td>{{ $supplier->kodesupplier }}</td>
-                <td>{{ $supplier->namasupplier }}</td>
-                <td>{{ $supplier->nomorHPsupplier }}</td>
-                <td>{{ $supplier->alamatsupplier }}</td>
+                <td style="text-align: center;">{{ $key + 1 }}</td>
+                <td>{{ $supplier->kodeSupplier }}</td>
+                <td>{{ $supplier->namaSupplier }}</td>
+                <td>{{ $supplier->nomorHpSupplier }}</td>
+                <td>{{ $supplier->alamatSupplier }}</td>
             </tr>
             @endforeach
         </tbody>

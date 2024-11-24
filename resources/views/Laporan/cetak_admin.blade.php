@@ -65,7 +65,7 @@
     <table>
         <thead>
             <tr>
-                <th>No</th>
+                <th style="text-align: center;">No</th>
                 <th>Nama</th>
                 <th>No. HP</th>
                 <th>Email</th>
@@ -74,9 +74,9 @@
         <tbody>
             @foreach($data as $key => $admin)
             <tr>
-                <td>{{ $key + 1 }}</td>
+                <td style="text-align: center;">{{ $key + 1 }}</td>
                 <td>{{ $admin->nama }}</td>
-                <td>{{ $admin->noHP }}</td>
+                <td>{{ $admin->noHp }}</td>
                 <td>{{ $admin->email }}</td>
             </tr>
             @endforeach

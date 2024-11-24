@@ -19,11 +19,8 @@ class PemakaianBahanBakuImport implements ToModel
             return new pemakaianBahanBaku([
                 //table - excel
                 'kodeBahanBaku' => $row['kodebahanbaku'],
-                'namaBahanBaku' => $row['namabahanbaku'],
+                'kodeProduksi' => $row['kodeproduksi'],
                 'jumlahPemakaian' => $row['jumlahpemakaian'],
-                'unitBB' => $row['unitbb'],
-                'tanggalPemakaian' => $row['tanggalpemakaian'],
-                'jenisBahanBaku' => $row['jenisbahanbaku'],
             ]);
         } else {
             return null;

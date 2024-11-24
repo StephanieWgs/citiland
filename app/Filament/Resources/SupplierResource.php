@@ -57,7 +57,6 @@ class SupplierResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('kodeSupplier')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('namaSupplier')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('nomorHpSupplier')->sortable()->searchable(),
