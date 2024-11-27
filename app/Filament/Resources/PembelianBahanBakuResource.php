@@ -60,6 +60,7 @@ class PembelianBahanBakuResource extends Resource
 
                 Forms\Components\TextInput::make('jumlahPembelian')
                     ->label('Jumlah pembelian')
+                    ->minValue(1)
                     ->required()
                     ->numeric()
                     ->maxLength(20),
@@ -111,7 +112,7 @@ class PembelianBahanBakuResource extends Resource
                             ->acceptedFileTypes(['application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
                             ->required(),
                     ])
-                    ->modalHeading('Import Data Pegawai')
+                    ->modalHeading('Import Data Pembelian BB')
                     ->modalButton('Import')
                     ->color('success'),
             ])

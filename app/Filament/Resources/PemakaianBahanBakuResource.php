@@ -65,8 +65,18 @@ class PemakaianBahanBakuResource extends Resource
 
                         // Jika stok tersedia, validasi agar jumlahPemakaian tidak melebihi stok
                         if ($stok && $state > $stok->jumlahBahanBaku) {
-                            $set('jumlahPemakaian', $stok->jumlahBahanBaku); // Atur jumlahPemakaian agar tidak melebihi stok
+                            $set('jumlahPemakaian', $stok->jumlahBahanBaku);
                         }
+                    })
+                    ->hint(function ($get) {
+                        $kodeBahanBaku = $get('kodeBahanBaku');
+                        if ($kodeBahanBaku) {
+                            $stok = stokBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)->first();
+                            if ($stok) {
+                                return 'Stok yang tersedia: ' . $stok->jumlahBahanBaku;
+                            }
+                        }
+                        return null;
                     })
                     ->reactive(),
             ]);
@@ -109,7 +119,7 @@ class PemakaianBahanBakuResource extends Resource
                             ->acceptedFileTypes(['application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
                             ->required(),
                     ])
-                    ->modalHeading('Import Data Pegawai')
+                    ->modalHeading('Import Data Pemakaian BB')
                     ->modalButton('Import')
                     ->color('success'),
             ])

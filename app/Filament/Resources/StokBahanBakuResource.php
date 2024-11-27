@@ -115,7 +115,7 @@ class StokBahanBakuResource extends Resource
                             ->acceptedFileTypes(['application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
                             ->required(),
                     ])
-                    ->modalHeading('Import Data Pegawai')
+                    ->modalHeading('Import Data Stok')
                     ->modalButton('Import')
                     ->color('success'),
             ])

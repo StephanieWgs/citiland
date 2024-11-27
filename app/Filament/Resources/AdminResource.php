@@ -86,7 +86,7 @@ class AdminResource extends Resource
                             ->acceptedFileTypes(['application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'])
                             ->required(),
                     ])
-                    ->modalHeading('Import Data Pegawai')
+                    ->modalHeading('Import Data Pegawai Admin')
                     ->modalButton('Import')
                     ->color('success'),
             ])

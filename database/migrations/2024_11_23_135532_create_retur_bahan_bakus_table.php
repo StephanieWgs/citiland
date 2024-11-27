@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();            
             $table->date("tanggalRetur");
             $table->char("referensi", length: 50);
-            $table->char("kodeBahanBaku", length: 10);
+            $table->char("kodeBahanBaku", length: 6);
             $table->integer("jumlahRetur");
             $table->text("alasan");
             $table->timestamps();

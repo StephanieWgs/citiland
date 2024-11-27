@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date("tanggalPembelian");
             $table->char("noInv", length: 50)->unique();
-            $table->char("kodeSupplier", length: 10);
-            $table->char("kodeBahanBaku", length: 10);
+            $table->char("kodeSupplier", length: 6);
+            $table->char("kodeBahanBaku", length: 6);
             $table->integer("jumlahPembelian");
             $table->integer("hargaBB");
             $table->integer("totalHarga");

@@ -59,4 +59,9 @@ class stokBahanBaku extends Model
 
         return self::STATUS_NEED_RESTOCK; // Default case
     }
+
+    public function jenisBB()
+    {
+        return $this->belongsTo(jenisBahanBaku::class, 'jenisBahanBaku', 'jenisBahanBaku');
+    }
 }

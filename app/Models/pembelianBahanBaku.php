@@ -35,6 +35,29 @@ class pembelianBahanBaku extends Model
                 $bahanBaku->save();
             }
         });
+
+        //jika data di edit
+        static::updating(function ($model) {
+            $original = $model->getOriginal();
+            $bahanBaku = stokBahanBaku::where('kodeBahanBaku', $model->kodeBahanBaku)->first();
+
+            if ($bahanBaku) {
+                // Kembalikan stok lama sebelum ada pembelian
+                $bahanBaku->jumlahBahanBaku -= $original['jumlahPembelian'];
+                // Tambah stok baru berdasarkan jumlah pembelian yang diedit
+                $bahanBaku->jumlahBahanBaku += $model->jumlahPembelian;
+                $bahanBaku->save();
+            }
+        });
+
+        // Kurangi kembali stok ketika data pembelian dihapus, berarti salah input dan stok berkurang
+        static::deleting(function ($model) {
+            $bahanBaku = stokBahanBaku::where('kodeBahanBaku', $model->kodeBahanBaku)->first();
+            if ($bahanBaku) {
+                $bahanBaku->jumlahBahanBaku -= $model->jumlahPembelian;
+                $bahanBaku->save();
+            }
+        });
     }
 
     public function hitungTotalHarga()

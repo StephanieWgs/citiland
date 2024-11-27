@@ -68,17 +68,45 @@ class ReturBahanBakuResource extends Resource
                     ->minValue(1)
                     ->afterStateUpdated(function (callable $set, $state, $get) {
                         $kodeBahanBaku = $get('kodeBahanBaku');
-                        $pembelian = pembelianBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)->first();
+                        $referensi = $get('referensi');
 
-                        if ($pembelian) {
-                            $totalRetur = returBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)
-                                ->sum('jumlahRetur');
-                            $maksRetur = $pembelian->jumlahPembelian - $totalRetur;
+                        if ($kodeBahanBaku && $referensi) {
+                            $pembelian = pembelianBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)
+                                ->where('noInv', $referensi)
+                                ->first();
 
-                            if ($state > $maksRetur) {
-                                $set('jumlahRetur', $maksRetur);
+                            if ($pembelian) {
+                                $totalYgSudahDiRetur = returBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)
+                                    ->where('referensi', $referensi)
+                                    ->sum('jumlahRetur');
+
+                                $maksRetur = $pembelian->jumlahPembelian - $totalYgSudahDiRetur;
+
+                                if ($state > $maksRetur) {
+                                    $set('jumlahRetur', $maksRetur);
+                                }
                             }
                         }
+                    })
+                    ->hint(function ($get) {
+                        $kodeBahanBaku = $get('kodeBahanBaku');
+                        $referensi = $get('referensi');
+                        if ($kodeBahanBaku && $referensi) {
+                            $pembelian = pembelianBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)
+                                ->where('noInv', $referensi)
+                                ->first();
+
+                            if ($pembelian) {
+                                $totalYgSudahDiRetur = returBahanBaku::where('kodeBahanBaku', $kodeBahanBaku)
+                                    ->where('referensi', $referensi)
+                                    ->sum('jumlahRetur');
+
+                                $maksRetur = $pembelian->jumlahPembelian - $totalYgSudahDiRetur;
+
+                                return "Maks jumlah retur yang dapat dilakukan: $maksRetur";
+                            }
+                        }
+                        return null;
                     })
                     ->reactive(),
 
